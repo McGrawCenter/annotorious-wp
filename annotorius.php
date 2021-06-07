@@ -1,14 +1,14 @@
 <?php
 /*
-	Plugin Name: Annotorius
+	Plugin Name: Annotorious
 	Plugin URI:
-	Description: Annotorius allows users to add annotations to images directly on the webpage
+	Description: Annotorious allows users to add annotations to images directly on the webpage
 	Version: 1.0
 	Author: Ben Johnston
 */
 
 
-class Annotorius {
+class Annotorious {
 
 	function __construct() {
 
@@ -223,5 +223,5 @@ class Annotorius {
 
 
 } // end Class
-new Annotorius();
+new Annotorious();
 
