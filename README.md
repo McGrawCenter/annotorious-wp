@@ -1,2 +1,2 @@
 # annotorius
-A Wordpress plugin implementing Annotorius image annotation
+A Wordpress plugin implementing Annotorious image annotation
