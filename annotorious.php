@@ -43,9 +43,6 @@ class Annotorious {
 
 	    wp_register_script('annotorius-js', plugins_url('js/script.js', __FILE__), array('jquery'),'1.1', true);
 	    wp_enqueue_script('annotorius-js');
-	    
-	    //wp_register_script('annotorius-metabox', plugins_url('js/metabox.js', __FILE__), array('jquery'),'1.1', true);
-	    //wp_enqueue_script('annotorius-metabox');	    
 	    global $post;
 	    $data = array('post_id' => $post->ID,'plugin_url' => plugin_dir_url( __FILE__ ),'ajax_url' => admin_url( 'admin-ajax.php' ));
 	    wp_localize_script( 'annotorius-js', 'annotoriusvars', $data );  	     
