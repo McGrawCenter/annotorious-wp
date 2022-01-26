@@ -1,6 +1,6 @@
 <?php
 /*
-	Plugin Name: Annotorius
+	Plugin Name: Annotorious
 	Plugin URI:
 	Description: Annotorius allows users to add annotations to images directly on the webpage
 	Version: 1.0
@@ -8,7 +8,7 @@
 */
 
 
-class Annotorius {
+class Annotorious {
 
 	function __construct() {
 
@@ -44,8 +44,8 @@ class Annotorius {
 	    wp_register_script('annotorius-js', plugins_url('js/script.js', __FILE__), array('jquery'),'1.1', true);
 	    wp_enqueue_script('annotorius-js');
 	    
-	    wp_register_script('annotorius-metabox', plugins_url('js/metabox.js', __FILE__), array('jquery'),'1.1', true);
-	    wp_enqueue_script('annotorius-metabox');	    
+	    //wp_register_script('annotorius-metabox', plugins_url('js/metabox.js', __FILE__), array('jquery'),'1.1', true);
+	    //wp_enqueue_script('annotorius-metabox');	    
 	    global $post;
 	    $data = array('post_id' => $post->ID,'plugin_url' => plugin_dir_url( __FILE__ ),'ajax_url' => admin_url( 'admin-ajax.php' ));
 	    wp_localize_script( 'annotorius-js', 'annotoriusvars', $data );  	     
@@ -112,7 +112,7 @@ class Annotorius {
 		} else {
 
 			$content = '<img src="" style="width:' . esc_attr( $content_width ) . 'px;height:auto;border:0;display:none;" />';
-			$content .= '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set listing image', 'text-domain' ) . '" href="javascript:;" id="upload_listing_image_button" id="set-listing-image" data-uploader_title="' . esc_attr__( 'Choose an image', 'text-domain' ) . '" data-uploader_button_text="' . esc_attr__( 'Set listing image', 'text-domain' ) . '">' . esc_html__( 'Set listing image', 'text-domain' ) . '</a></p>';
+			$content .= '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set annotated image', 'text-domain' ) . '" href="javascript:;" id="upload_listing_image_button" id="set-listing-image" data-uploader_title="' . esc_attr__( 'Choose an image', 'text-domain' ) . '" data-uploader_button_text="' . esc_attr__( 'Set annotated image', 'text-domain' ) . '">' . esc_html__( 'Set annotated image', 'text-domain' ) . '</a></p>';
 			$content .= '<input type="hidden" id="upload_listing_image" name="_annotorius_image" value="" />';
 
 		}
@@ -152,7 +152,7 @@ class Annotorius {
 		$post_id = $_GET['post_id'];
 		header('Content-Type: application/json');
 		if(!$meta = get_post_meta($post_id, 'annotorius', true)){
-		    $meta = json_ecnode(array());
+		    $meta = json_encode(array());
 		 }
 		echo $meta;
 		wp_die();
@@ -168,6 +168,7 @@ class Annotorius {
 		    $meta = array();
 		 }
 		
+		$_GET['annotation']['body'][0]['value'] = str_replace("\'","'",$_GET['annotation']['body'][0]['value']);
 		$meta[] = $_GET['annotation'];
 		$id = update_post_meta( $post_id , 'annotorius', json_encode($meta));
 
@@ -187,7 +188,6 @@ class Annotorius {
 
 		foreach($meta as $i=>$m) {
 		  if($m->id==$annoid) {
-		    echo "FOUND IT!";
 		    unset($meta[$i]);
 		    update_post_meta( $post_id , 'annotorius', json_encode($meta));
 		  }
@@ -223,5 +223,5 @@ class Annotorius {
 
 
 } // end Class
-new Annotorius();
+new Annotorious();
 
