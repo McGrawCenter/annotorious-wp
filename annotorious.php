@@ -2,7 +2,7 @@
 /*
 	Plugin Name: Annotorious
 	Plugin URI:
-	Description: Annotorius allows users to add annotations to images directly on the webpage
+	Description: Annotorious allows users to add annotations to images directly on the webpage
 	Version: 1.0
 	Author: Ben Johnston
 */
