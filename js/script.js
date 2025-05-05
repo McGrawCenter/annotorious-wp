@@ -3,13 +3,20 @@ jQuery(document).ready(function(){
 
      var imgid = "annotorius"; //jQuery('.annotorius').attr('id');
      var jsonurl = annotoriusvars.ajax_url+"?action=anno_get&post_id="+annotoriusvars.post_id;
-    console.log(jsonurl);
+    console.log(annotoriusvars);
+    
+    
    
     (function() {
     
-      var anno = Annotorious.init({
+      var config = {
         image: imgid // image element or ID
-      });
+      }
+      
+      if(!annotoriusvars.loggedin || annotoriusvars.loggedin == '') { config.readOnly = true; }
+    
+      var anno = Annotorious.init(config);
+      
 
       anno.loadAnnotations(jsonurl);
 

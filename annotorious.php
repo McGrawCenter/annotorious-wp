@@ -19,6 +19,7 @@ class Annotorious {
 	  add_action( 'save_post', array( $this, 'annotorius_image_save' ), 10, 1 );
 	  add_filter( 'the_content', array( $this , 'content_filter' ) );
 	  
+	  add_action( 'wp_ajax_nopriv_anno_get', array( $this, 'anno_get') );
 	  add_action( 'wp_ajax_anno_get', array( $this, 'anno_get' ) );	  
 	  add_action( 'wp_ajax_anno_add', array( $this, 'anno_add' ) );
 	  add_action( 'wp_ajax_anno_delete', array( $this, 'anno_delete' ) );
@@ -43,8 +44,11 @@ class Annotorious {
 
 	    wp_register_script('annotorius-js', plugins_url('js/script.js', __FILE__), array('jquery'),'1.1', true);
 	    wp_enqueue_script('annotorius-js');
+	    
 	    global $post;
+	    
 	    $data = array('post_id' => $post->ID,'plugin_url' => plugin_dir_url( __FILE__ ),'ajax_url' => admin_url( 'admin-ajax.php' ));
+	    if (is_user_logged_in()) {  $data['loggedin'] = true;  } else { $data['loggedin'] = false; }
 	    wp_localize_script( 'annotorius-js', 'annotoriusvars', $data );  	     
 
 	}
